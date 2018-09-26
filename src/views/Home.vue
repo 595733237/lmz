@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <HelloWorld/>
+    <HelloWorld />
   </div>
 </template>
 
@@ -17,8 +17,8 @@ export default {
 </script>
 
 <style type="text/css">
-	.home{
-		background: #EFEFEF;
-		height: 100%;
-	}
+.home {
+  background: #efefef;
+  height: 100%;
+}
 </style>
