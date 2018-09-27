@@ -1,16 +1,77 @@
 <template>
 	<div class="card">
 		<div class="card">
-			<input type="text" class="input_t" placeholder="问卷标题"/>
+			<div class="card—header">
+				<input type="text" class="input_t" placeholder="问卷标题" required="required"/>
+			</div>
 			<hr />
 			<div class="card-body">
-
+				<div class="body_content">
+					<div class="block" v-for="parent,list in date" :key="list">
+						<div class="ques">
+							<div class="ques_title">
+								<label>Q{{list+1}} (单选题)</label>&nbsp;&nbsp;
+								<input type="text" value="新的题目"/>
+							</div>
+							<div class="ques_body">
+								<div v-for="child in parent.ques" :key="child.id">
+									<input type="radio" value="新的选项" name="1"/>&nbsp;&nbsp;<input type="text" v-model="child.answer"/>
+									<el-button v-on:click="removeques(parent.ques,child)" type="text" size="middle"><i class="el-icon-delete"> 删除选项</i></el-button>
+							 	</div>
+							 	<div class="quesbtn">
+							 		<el-button v-on:click="addNewques(parent.ques)" type="text" size="middle"><i class="el-icon-plus"> 添加新选项</i></el-button>
+							 		<el-button v-on:click="removeBlock" type="text" size="middle" style="float: right;"><i class="el-icon-delete"> 删除题目</i></el-button>
+							 		<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-up"> 上移</i></el-button>
+							 		<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-down"> 下移</i></el-button>
+							 	</div>
+							</div>
+						</div>
+					</div>
+					<div class="block" v-for="parent,num in checkBox" :key="num">
+						<div class="ques">
+							<div class="ques_title">
+								<label>Q{{num+1}} (多选题)</label>&nbsp;&nbsp;	
+								<input type="text" value="新的题目"/>
+							</div>
+							<div class="ques_body">
+								<div v-for="child in parent.ques_c" :key="child.idc">
+									<input type="checkbox" value="新的选项" name="2"/>&nbsp;&nbsp;<input type="text" v-model="child.answer"/>
+									<el-button v-on:click="removecheckbox(parent.ques_c,child)" type="text" size="middle"><i class="el-icon-delete"> 删除选项</i></el-button>
+							 	</div>
+							 	<div class="quesbtn">
+							 		<el-button v-on:click="addNewcheckbox(parent.ques_c)" type="text" size="middle"><i class="el-icon-plus"> 添加新选项</i></el-button>
+							 		<el-button v-on:click="removeBlock_C" type="text" size="middle" style="float: right;"><i class="el-icon-delete"> 删除题目</i></el-button>
+							 		<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-up"> 上移</i></el-button>
+							 		<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-down"> 下移</i></el-button>
+							 	</div>
+							</div>
+						</div>
+					</div>
+					<div class="block" v-for="p,n in textarea" :key="n">
+						<div class="ques">
+							<div class="ques_title">
+								<label>Q{{n+1}} (文本题)</label>&nbsp;&nbsp;	
+								<input type="text" value="新的题目"/>
+							</div>
+							<div class="ques_body">
+								<div class="texta">
+									<textarea placeholder="请简要概述"></textarea>
+							 	</div>
+							 	<div class="textabtn">
+							 		<el-button type="text" size="middle" ><i class="el-icon-arrow-down"> 下移</i></el-button>
+							 		<el-button type="text" size="middle" ><i class="el-icon-arrow-up"> 上移</i></el-button>
+							 		<el-button v-on:click="removeBlock_t" type="text" size="middle" ><i class="el-icon-delete"> 删除题目</i></el-button>
+							 	</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="body_f">
 					<transition name="fade">
 						<div class="body_btn" v-if="show">
-							<button>单选题</button>
-							<button>多选题</button>
-							<button>文本题</button>
+							<button v-on:click="addNewBlock">单选题</button>
+							<button v-on:click="addNewBlock_C">多选题</button>
+							<button v-on:click="addNewBlock_t">文本题</button>
 						</div>
 					</transition>
 
@@ -25,7 +86,7 @@
 			<div class="card-footer">
 				<div class="inline-block">
 					<span class="demonstration">问卷有效期&nbsp;&nbsp;&nbsp;</span>
-					<el-date-picker v-model="value7" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
+					<el-date-picker v-model="value7" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" required="required">
 					</el-date-picker>
 				</div>
 				<div class="inline-block r">
@@ -35,9 +96,7 @@
 						</div>
 					</div>
 					<div class="btn">
-						<div class="b1">
-							发布问卷
-						</div>
+						<button class="b1" type="submit">发布问卷</button>
 					</div>
 					<div class="btn">
 						<div class="b1">
@@ -54,6 +113,46 @@
 export default {
 	data() {
 		return {
+			date:[{
+					ques:[{
+				        id: 1,
+				        answer: '新的选项'
+				      },
+				      {
+				        id: 2,
+				        answer: '新的选项'
+				      },
+				      {
+				        id: 3,
+				        answer: '新的选项'
+				      }
+					],
+					nextTodoId: 4
+				}],
+				nextAnswerId: 4,
+			checkBox:[{
+				ques_c:[{
+					idc: 1,
+					answer: '新的选项'
+				},
+				{
+			        idc: 2,
+			        answer: '新的选项'
+			    },
+			    {
+			        idc: 3,
+			        answer: '新的选项'
+			    },
+			    {
+			        idc: 4,
+			        answer: '新的选项'
+			    },
+				],nextcId: 5,	
+			}],
+			nextAcId: 5,
+			textarea:[{
+				
+			}],
 			show: false,
 			pickerOptions2: {
 				shortcuts: [{
@@ -86,6 +185,58 @@ export default {
 			value7: ' '
 		};
 	},
+	methods:{
+			addNewques: function (ques) {
+			  	ques.push({
+			  		id: this.nextAnswerId++,
+			        answer: '新的选项'
+			 	})
+			},
+			removeques: function (ques,child) {
+				let index = ques.indexOf(child);
+				ques.splice(index, 1);
+				id: this.nextAnswerId--;
+			},
+			addNewBlock: function () {
+			  	this.date.push({ ques:[{id:1,answer: '新的选项'},{id:2,answer: '新的选项'},{id:3,answer: '新的选项'}],nextTodoId: 4
+			 	})
+			},
+			removeBlock: function (list) {
+				let index = this.date.indexOf(list);
+				this.date.splice(index, 1);
+			},
+			
+			
+			addNewcheckbox: function (ques_c) {
+			  	ques_c.push({
+			  		idc: this.nextcId++,
+			        answer: '新的选项'
+			 	})
+			},
+			removecheckbox: function (ques_c,child) {
+				let index = ques_c.indexOf(child);
+				ques_c.splice(index, 1);
+				idc: this.nextcId--;
+			},
+			addNewBlock_C: function () {
+			  	this.checkBox.push({ ques_c:[{idc:1,answer: '新的选项'},{idc:2,answer: '新的选项'},{idc:3,answer: '新的选项'},{idc:4,answer: '新的选项'}],nextcId: 5
+			 	})
+			},
+			removeBlock_C: function (num) {
+				let index = this.checkBox.indexOf(num);
+				this.checkBox.splice(index, 1);
+				idc: this.nextcId--;
+			},
+			addNewBlock_t: function () {
+			  	this.textarea.push({ 
+			 	})
+			},
+			removeBlock_t: function (n) {
+				let index = this.textarea.indexOf(n);
+				this.textarea.splice(index, 1);
+			},
+			
+		}
 
 };
 </script>
@@ -106,6 +257,35 @@ export default {
   text-align: center;
   letter-spacing: 5px;
 }
+.block{
+	margin:15px 0;
+}
+.block :hover{
+	background: #FCF0E5;
+}
+.ques input{
+	border: none;
+	outline: none;
+	background-color: transparent;
+}
+.ques_title input{
+	width: 600px;
+}
+.quesbtn{
+	padding: 0 10px;
+}
+.texta
+{
+	width: 100%;
+}
+.texta textarea{
+	width: 600px;
+	height: 150px;
+}
+.textabtn{
+	text-align: right;
+	padding: 0 15px;
+}
 .body_btn {
   text-align: center;
   font-size: 15px;
@@ -123,7 +303,7 @@ export default {
   width: 100%;
 }
 .body_bottom :hover {
-  background: lightpink;
+  background: #FCF0E5;
 }
 .fade-enter-active,
 .fade-leave-active {
@@ -146,6 +326,7 @@ export default {
   border: black solid 1px;
   padding: 7px 10px;
   font-size: 15px;
+  background: #FFFFFF;
 }
 .card-footer .btn a {
   text-decoration: none;

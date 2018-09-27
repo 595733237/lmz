@@ -1,3 +1,7 @@
+html {
+    background-color: #efefef;
+}
+
 .el-form-item.is-required .el-form-item__label:before {
     display: none;
 }
