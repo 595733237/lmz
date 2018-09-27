@@ -1,4 +1,4 @@
-<template id="111">
+<template>
 	<div class="el-card__body">
 		<el-row :gutter="24">
 			<el-col :span="20" :offset="2">
@@ -20,7 +20,7 @@
 						</el-table-column>
 						<el-table-column fixed="right" label="操作" width="200">
 							<template slot-scope="scope">
-								<el-button type="text" size="middle"><i class="el-icon-edit"></i>编辑</el-button>
+								<el-button type="text" size="middle"><i class="el-icon-edit"></i><router-link to="/text">编辑</router-link></el-button>
 								<el-button @click="handleClick(scope.row)" type="text" size="middle"><i class="el-icon-view">查看</i></el-button>
 								<el-button @click="handleClick(scope.row)" type="text" size="middle"><i class="el-icon-delete">删除</i></el-button>
 							</template>

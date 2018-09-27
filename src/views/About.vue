@@ -245,17 +245,20 @@ export default {
 .card {
   padding: 25px;
 }
+.card—header :hover{
+	background: #FCF0E5;
+}
 .input_t {
   width: 100%;
   padding: 20px 0;
   font-size: 25px;
   text-align: center;
+  background: transparent;
 }
 .input_t input::-webkit-input-placeholder {
   color: #aab2bd;
   font-size: 25px;
   text-align: center;
-  letter-spacing: 5px;
 }
 .block{
 	margin:15px 0;
