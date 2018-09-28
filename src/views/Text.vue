@@ -13,7 +13,10 @@
 						<div id="myChart_l1" class="mychart"></div>
 					</div>
 					<div class="card_foot">
-						<router-link to="/" >返回列表</router-link>
+						<div  class="btn">
+							<router-link to="/" >返回列表</router-link>
+						</div>
+						
 					</div>
 				</div>
 			</el-col>
@@ -28,12 +31,22 @@
 	.card-head h2{
 		text-align: center;
 	}
+	.card-body{
+		text-align: center;
+	}
 	.mychart{
 		width: 400px;
 		height: 400px;
 	}
 	.card_foot{
 		text-align: center;
+	}
+	.card_foot .btn{
+		background: #ee7419;
+		color: #FFFFFF;
+	}
+	.card_foot a {
+		color: #FFFFFF;
 	}
 </style>
 <script>

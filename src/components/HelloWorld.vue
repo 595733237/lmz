@@ -1,4 +1,4 @@
-<template>
+<template id="111">
 	<div class="el-card__body">
 		<el-row :gutter="24">
 			<el-col :span="20" :offset="2">
