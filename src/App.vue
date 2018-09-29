@@ -8,6 +8,22 @@
   </div>
 </template>
 
+<!--<script>
+export default {
+	data() {
+		return {}
+	},
+	computed: {
+		test() {
+			return this.$store.state.test
+		}
+	},
+	mounted() {
+		this.$store.commit('setTest', 4546)
+	}
+}
+</script>-->
+
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

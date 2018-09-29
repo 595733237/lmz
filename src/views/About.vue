@@ -7,50 +7,51 @@
 			<hr />
 			<div class="card-body">
 				<div class="body_content">
-					<div class="block" v-for="parent,list in date" :key="list">
+					<div class="block" v-for="(parent,list) in date">
 						<div class="ques">
 							<div class="ques_title">
 								<label>Q{{list+1}} (单选题)</label>&nbsp;&nbsp;
 								<input type="text" value="新的题目"/>
 							</div>
 							<div class="ques_body">
-								<div v-for="child in parent.ques" :key="child.id">
+								<div v-for="child in parent.ques">
 									<input type="radio" value="新的选项" name="1"/>&nbsp;&nbsp;<input type="text" v-model="child.answer"/>
 									<el-button v-on:click="removeques(parent.ques,child)" type="text" size="middle"><i class="el-icon-delete"> 删除选项</i></el-button>
 							 	</div>
 							 	<div class="quesbtn">
 							 		<el-button v-on:click="addNewques(parent.ques)" type="text" size="middle"><i class="el-icon-plus"> 添加新选项</i></el-button>
-							 		<el-button v-on:click="removeBlock" type="text" size="middle" style="float: right;"><i class="el-icon-delete"> 删除题目</i></el-button>
-							 		<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-up"> 上移</i></el-button>
-							 		<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-down"> 下移</i></el-button>
+							 		<el-button v-on:click="removeBlock(parent)" type="text" size="large" style="float: right;"><i class="el-icon-delete"> 删除题目</i></el-button>
+							 		<!--<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-up"> 上移</i></el-button>
+							 		<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-down"> 下移</i></el-button>-->
 							 	</div>
 							</div>
 						</div>
 					</div>
-					<div class="block" v-for="parent,num in checkBox" :key="num">
+					<div class="block" v-for="parent,num in checkBox">
 						<div class="ques">
 							<div class="ques_title">
 								<label>Q{{num+1}} (多选题)</label>&nbsp;&nbsp;	
 								<input type="text" value="新的题目"/>
 							</div>
 							<div class="ques_body">
-								<div v-for="child in parent.ques_c" :key="child.idc">
+								<div v-for="child in parent.ques_c">
 									<input type="checkbox" value="新的选项" name="2"/>&nbsp;&nbsp;<input type="text" v-model="child.answer"/>
 									<el-button v-on:click="removecheckbox(parent.ques_c,child)" type="text" size="middle"><i class="el-icon-delete"> 删除选项</i></el-button>
 							 	</div>
 							 	<div class="quesbtn">
 							 		<el-button v-on:click="addNewcheckbox(parent.ques_c)" type="text" size="middle"><i class="el-icon-plus"> 添加新选项</i></el-button>
-							 		<el-button v-on:click="removeBlock_C" type="text" size="middle" style="float: right;"><i class="el-icon-delete"> 删除题目</i></el-button>
-							 		<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-up"> 上移</i></el-button>
-							 		<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-down"> 下移</i></el-button>
+							 		<el-button v-on:click="removeBlock_C(parent)" type="text" size="large" style="float: right;"><i class="el-icon-delete"> 删除题目</i></el-button>
+							 		<!--<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-up"> 上移</i></el-button>
+							 		<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-down"> 下移</i></el-button>-->
 							 	</div>
 							</div>
 						</div>
 					</div>
-					<div class="block" v-for="p,n in textarea" :key="n">
+					<div class="block" v-for="(list,p) in textarea">
 						<div class="ques">
 							<div class="ques_title">
-								<label>Q{{n+1}} (文本题)</label>&nbsp;&nbsp;	
+								
+								<label>Q{{p+1}}(文本题)</label>&nbsp;&nbsp;	
 								<input type="text" value="新的题目"/>
 							</div>
 							<div class="ques_body">
@@ -58,9 +59,9 @@
 									<textarea placeholder="请简要概述"></textarea>
 							 	</div>
 							 	<div class="textabtn">
-							 		<el-button type="text" size="middle" ><i class="el-icon-arrow-down"> 下移</i></el-button>
-							 		<el-button type="text" size="middle" ><i class="el-icon-arrow-up"> 上移</i></el-button>
-							 		<el-button v-on:click="removeBlock_t" type="text" size="middle" ><i class="el-icon-delete"> 删除题目</i></el-button>
+							 		<!--<el-button type="text" size="middle" ><i class="el-icon-arrow-down"> 下移</i></el-button>
+							 		<el-button type="text" size="middle" ><i class="el-icon-arrow-up"> 上移</i></el-button>-->
+							 		<el-button v-on:click="removeBlock_t(list)" type="text" size="large" ><i class="el-icon-delete"> 删除题目</i></el-button>
 							 	</div>
 							</div>
 						</div>
@@ -127,9 +128,8 @@ export default {
 				        answer: '新的选项'
 				      }
 					],
-					nextTodoId: 4
+					nextId: 4
 				}],
-				nextAnswerId: 4,
 			checkBox:[{
 				ques_c:[{
 					idc: 1,
@@ -149,8 +149,8 @@ export default {
 			    },
 				],nextcId: 5,	
 			}],
-			nextAcId: 5,
 			textarea:[{
+				
 				
 			}],
 			show: false,
@@ -188,17 +188,17 @@ export default {
 	methods:{
 			addNewques: function (ques) {
 			  	ques.push({
-			  		id: this.nextAnswerId++,
+			  		id: ques.nextId++,
 			        answer: '新的选项'
 			 	})
 			},
 			removeques: function (ques,child) {
 				let index = ques.indexOf(child);
 				ques.splice(index, 1);
-				id: this.nextAnswerId--;
+				ques.nextId--;
 			},
 			addNewBlock: function () {
-			  	this.date.push({ ques:[{id:1,answer: '新的选项'},{id:2,answer: '新的选项'},{id:3,answer: '新的选项'}],nextTodoId: 4
+			  	this.date.push({ ques:[{id:1,answer: '新的选项'},{id:2,answer: '新的选项'},{id:3,answer: '新的选项'}],nextId: 4
 			 	})
 			},
 			removeBlock: function (list) {
@@ -209,14 +209,14 @@ export default {
 			
 			addNewcheckbox: function (ques_c) {
 			  	ques_c.push({
-			  		idc: this.nextcId++,
+			  		idc: ques_c.nextcId++,
 			        answer: '新的选项'
 			 	})
 			},
 			removecheckbox: function (ques_c,child) {
 				let index = ques_c.indexOf(child);
 				ques_c.splice(index, 1);
-				idc: this.nextcId--;
+				idc: ques_c.nextcId--;
 			},
 			addNewBlock_C: function () {
 			  	this.checkBox.push({ ques_c:[{idc:1,answer: '新的选项'},{idc:2,answer: '新的选项'},{idc:3,answer: '新的选项'},{idc:4,answer: '新的选项'}],nextcId: 5
@@ -224,19 +224,31 @@ export default {
 			},
 			removeBlock_C: function (num) {
 				let index = this.checkBox.indexOf(num);
+				console.log(index)
 				this.checkBox.splice(index, 1);
-				idc: this.nextcId--;
 			},
 			addNewBlock_t: function () {
 			  	this.textarea.push({ 
 			 	})
+
 			},
-			removeBlock_t: function (n) {
-				let index = this.textarea.indexOf(n);
-				this.textarea.splice(index, 1);
+			removeBlock_t: function (t) {
+				let num = this.textarea.indexOf(t)
+				console.log(num)
+				this.textarea.splice(num, 1);
+				
 			},
 			
+		},
+		
+	/*computed: {
+		test() {
+			return this.$store.state.test
 		}
+	},
+	mounted() {
+		this.$store.commit('setTest', this.test + 1)
+	}*/
 
 };
 </script>
