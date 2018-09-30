@@ -5,15 +5,15 @@
     </div>
 
     <div v-if="type === 1">
-      <div v-for="(answer, index) in answers" :key="index">
-        <el-radio v-model="radio" :label="index" @change="updateResult">{{answer}}</el-radio>
+      <div v-for="answer in answers" :key="answer.id">
+        <el-radio v-model="radio" :label="answer.value" @change="updateResult">{{answer.value}}</el-radio>
       </div>
     </div>
 
     <div v-else-if="type === 2">
       <el-checkbox-group v-model="checkList" @change="updateResult">
-        <div v-for="(answer, index) in answers" :key="index">
-          <el-checkbox :label="answer"></el-checkbox>
+        <div v-for="answer in answers" :key="answer.id">
+          <el-checkbox :label="answer.value"></el-checkbox>
         </div>
       </el-checkbox-group>
     </div>
