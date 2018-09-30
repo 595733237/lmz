@@ -2,117 +2,124 @@
   <div class="card">
     <div class="card">
       <div class="card—header">
-        <input type="text" class="input_t" placeholder="问卷标题" required="required"/>
+        <input type="text" class="input_t" placeholder="问卷标题" required="required" />
       </div>
-        <hr />
-        <div class="card-body">
-          <div class="body_content">
-            <div class="block" v-for="(parent,list) in date" :key="list">
-              <div class="ques">
-                <div class="ques_title">
-                  <label>Q{{list+1}} (单选题)</label>&nbsp;&nbsp;
-                  <input type="text" v-model="parent.title"/>
+      <hr />
+      <div class="card-body">
+        <div class="body_content">
+          <div class="block" v-for="(parent,list) in date" :key="list">
+            <div class="ques">
+              <div class="ques_title">
+                <label>Q{{list+1}} (单选题)</label>&nbsp;&nbsp;
+                <input type="text" v-model="parent.title" />
               </div>
-                  <div class="ques_body">
-                    <div v-for="(child,i) in parent.ques" :key="i">
-                      <input type="radio" value="新的选项" name="1"/>&nbsp;&nbsp;<input type="text" v-model="child.answer"/>
-                      <el-button v-on:click="removeques(parent.ques,child)" type="text" size="middle"><i class="el-icon-delete"> 删除选项</i></el-button>
-                    </div>
-                    <div class="quesbtn">
-                      <el-button v-on:click="addNewques(parent.ques)" type="text" size="middle"><i class="el-icon-plus"> 添加新选项</i></el-button>
-                      <el-button v-on:click="removeBlock(parent)" type="text" size="large" style="float: right;"><i class="el-icon-delete"> 删除题目</i></el-button>
-                      <!--<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-up"> 上移</i></el-button>
-                   <el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-down"> 下移</i></el-button>-->
-                    </div>
-                  </div>
+              <div class="ques_body">
+                <div v-for="(child,i) in parent.ques" :key="i">
+                  <input type="radio" value="新的选项" name="1" />&nbsp;&nbsp;<input type="text" v-model="child.answer" />
+                  <el-button v-on:click="removeques(parent.ques,child)" type="text" size="middle"><i class="el-icon-delete">
+                      删除选项</i></el-button>
                 </div>
-              </div>
-              <div class="block" v-for="(parent,num) in checkBox" :key="num">
-                <div class="ques">
-                  <div class="ques_title">
-                    <label>Q{{num+1}} (多选题)</label>&nbsp;&nbsp;
-                    <input type="text" v-model="parent.title"/>
-              </div>
-                    <div class="ques_body">
-                      <div v-for="(child,i) in parent.ques_c" :key="i">
-                        <input type="checkbox" value="新的选项" name="2"/>&nbsp;&nbsp;<input type="text" v-model="child.answer"/>
-                        <el-button v-on:click="removecheckbox(parent.ques_c,child)" type="text" size="middle"><i class="el-icon-delete"> 删除选项</i></el-button>
-                      </div>
-                      <div class="quesbtn">
-                        <el-button v-on:click="addNewcheckbox(parent.ques_c)" type="text" size="middle"><i class="el-icon-plus"> 添加新选项</i></el-button>
-                        <el-button v-on:click="removeBlock_C(parent)" type="text" size="large" style="float: right;"><i class="el-icon-delete"> 删除题目</i></el-button>
-                        <!--<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-up"> 上移</i></el-button>
-                   <el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-down"> 下移</i></el-button>-->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="block" v-for="(list,p) in textarea" :key="p">
-                  <div class="ques">
-                    <div class="ques_title">
-
-                      <label>Q{{p+1}}(文本题)</label>&nbsp;&nbsp;
-                      <input type="text" v-model="list.title"/>
-              </div>
-                      <div class="ques_body">
-                        <div class="texta">
-                          <textarea placeholder="请简要概述"></textarea>
-                        </div>
-                        <div class="textabtn">
-                          <!--<el-button type="text" size="middle" ><i class="el-icon-arrow-down"> 下移</i></el-button>
-                   <el-button type="text" size="middle" ><i class="el-icon-arrow-up"> 上移</i></el-button>-->
-                          <el-button v-on:click="removeBlock_t(list)" type="text" size="large"><i class="el-icon-delete"> 删除题目</i></el-button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="body_f">
-                  <transition name="fade">
-                    <div class="body_btn" v-if="show">
-                      <button v-on:click="addNewBlock">单选题</button>
-                      <button v-on:click="addNewBlock_C">多选题</button>
-                      <button v-on:click="addNewBlock_t">文本题</button>
-                    </div>
-                  </transition>
-
-                  <div class="body_bottom" v-on:click="show = !show">
-                    <div class=" btn btn-default">
-                      <i class="el-icon-plus"></i> 新建问题
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <div class="card-footer">
-                <div class="inline-block">
-                  <span class="demonstration">问卷有效期&nbsp;&nbsp;&nbsp;</span>
-                  <el-date-picker v-model="value7" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" required="required">
-                  </el-date-picker>
-                </div>
-                <div class="inline-block r">
-                  <div class="btn">
-                    <div class="b1">
-                      保存问卷
-                    </div>
-                  </div>
-                  <div class="btn">
-                    <button class="b1" type="submit">发布问卷</button>
-                  </div>
-                  <div class="btn">
-                    <div class="b1">
-                      <router-link to="/">返回列表</router-link>
-                    </div>
-                  </div>
+                <div class="quesbtn">
+                  <el-button v-on:click="addNewques(parent.ques)" type="text" size="middle"><i class="el-icon-plus">
+                      添加新选项</i></el-button>
+                  <el-button v-on:click="removeBlock(parent)" type="text" size="large" style="float: right;"><i class="el-icon-delete">
+                      删除题目</i></el-button>
+                  <!--<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-up"> 上移</i></el-button>
+                  <el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-down"> 下移</i></el-button>-->
                 </div>
               </div>
             </div>
           </div>
+          <div class="block" v-for="(parent,num) in checkBox" :key="num">
+            <div class="ques">
+              <div class="ques_title">
+                <label>Q{{num+1}} (多选题)</label>&nbsp;&nbsp;
+                <input type="text" v-model="parent.title" />
+              </div>
+              <div class="ques_body">
+                <div v-for="(child,i) in parent.ques_c" :key="i">
+                  <input type="checkbox" value="新的选项" name="2" />&nbsp;&nbsp;<input type="text" v-model="child.answer" />
+                  <el-button v-on:click="removecheckbox(parent.ques_c,child)" type="text" size="middle"><i class="el-icon-delete">
+                      删除选项</i></el-button>
+                </div>
+                <div class="quesbtn">
+                  <el-button v-on:click="addNewcheckbox(parent.ques_c)" type="text" size="middle"><i class="el-icon-plus">
+                      添加新选项</i></el-button>
+                  <el-button v-on:click="removeBlock_C(parent)" type="text" size="large" style="float: right;"><i class="el-icon-delete">
+                      删除题目</i></el-button>
+                  <!--<el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-up"> 上移</i></el-button>
+                  <el-button type="text" size="middle" style="float: right;"><i class="el-icon-arrow-down"> 下移</i></el-button>-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="block" v-for="(list,p) in textarea" :key="p">
+            <div class="ques">
+              <div class="ques_title">
+
+                <label>Q{{p+1}}(文本题)</label>&nbsp;&nbsp;
+                <input type="text" v-model="list.title" />
+              </div>
+              <div class="ques_body">
+                <div class="texta">
+                  <textarea placeholder="请简要概述"></textarea>
+                </div>
+                <div class="textabtn">
+                  <!--<el-button type="text" size="middle" ><i class="el-icon-arrow-down"> 下移</i></el-button>
+                  <el-button type="text" size="middle" ><i class="el-icon-arrow-up"> 上移</i></el-button>-->
+                  <el-button v-on:click="removeBlock_t(list)" type="text" size="large"><i class="el-icon-delete"> 删除题目</i></el-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="body_f">
+          <transition name="fade">
+            <div class="body_btn" v-if="show">
+              <button v-on:click="addNewBlock">单选题</button>
+              <button v-on:click="addNewBlock_C">多选题</button>
+              <button v-on:click="addNewBlock_t">文本题</button>
+            </div>
+          </transition>
+
+          <div class="body_bottom" v-on:click="show = !show">
+            <div class=" btn btn-default">
+              <i class="el-icon-plus"></i> 新建问题
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="card-footer">
+        <div class="inline-block">
+          <span class="demonstration">问卷有效期&nbsp;&nbsp;&nbsp;</span>
+          <el-date-picker v-model="value7" type="daterange" align="right" unlink-panels range-separator="至"
+            start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2" required="required">
+          </el-date-picker>
+        </div>
+        <div class="inline-block r">
+          <div class="btn">
+            <div class="b1">
+              保存问卷
+            </div>
+          </div>
+          <div class="btn">
+            <button class="b1" type="submit">发布问卷</button>
+          </div>
+          <div class="btn">
+            <div class="b1">
+              <router-link to="/">返回列表</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       date: [{
         title: '新的题目',
@@ -154,14 +161,12 @@ export default {
       textarea: [{
         title: '新的题目',
 
-
-
       }],
       show: false,
       pickerOptions2: {
         shortcuts: [{
           text: '最近一周',
-          onClick(picker) {
+          onClick (picker) {
             const end = new Date();
             const start = new Date();
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
@@ -169,7 +174,7 @@ export default {
           }
         }, {
           text: '最近一个月',
-          onClick(picker) {
+          onClick (picker) {
             const end = new Date();
             const start = new Date();
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
@@ -177,7 +182,7 @@ export default {
           }
         }, {
           text: '最近三个月',
-          onClick(picker) {
+          onClick (picker) {
             const end = new Date();
             const start = new Date();
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
@@ -247,12 +252,12 @@ export default {
   },
 
   /*computed: {
-    test() {
-      return this.$store.state.test
-    }
+  test() {
+  return this.$store.state.test
+  }
   },
   mounted() {
-    this.$store.commit('setTest', this.test + 1)
+  this.$store.commit('setTest', this.test + 1)
   }*/
 
 };

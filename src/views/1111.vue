@@ -23,44 +23,19 @@
     </el-row>
   </div>
 </template>
-<style>
-.card {
-  box-shadow: 5px 5px 5px #888888;
-  padding: 35px 0;
-}
-.card-head h2 {
-  text-align: center;
-}
-.card-body {
-  text-align: center;
-}
-.mychart {
-  width: 400px;
-  height: 400px;
-}
-.card_foot {
-  text-align: center;
-}
-.card_foot .btn {
-  background: #ee7419;
-  color: #ffffff;
-}
-.card_foot a {
-  color: #ffffff;
-}
-</style>
+
 <script>
 export default {
-  data() {
+  data () {
     return {
 
     }
   },
-  mounted() {
+  mounted () {
     this.drawLine();
   },
   methods: {
-    drawLine() {
+    drawLine () {
 
       let myChart_l = this.$echarts.init(document.getElementById('myChart_l'))
       let myChart_c = this.$echarts.init(document.getElementById('myChart_c'))
@@ -127,5 +102,31 @@ export default {
     }
   }
 }
-
 </script>
+
+<style>
+.card {
+  box-shadow: 5px 5px 5px #888888;
+  padding: 35px 0;
+}
+.card-head h2 {
+  text-align: center;
+}
+.card-body {
+  text-align: center;
+}
+.mychart {
+  width: 400px;
+  height: 400px;
+}
+.card_foot {
+  text-align: center;
+}
+.card_foot .btn {
+  background: #ee7419;
+  color: #ffffff;
+}
+.card_foot a {
+  color: #ffffff;
+}
+</style>
