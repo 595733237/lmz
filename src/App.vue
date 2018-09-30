@@ -1,28 +1,28 @@
 <template>
   <div id="app">
     <div id="nav">
-        <label><i class="el-icon-question"></i><strong> 问卷管理</strong></label>
-        <router-link to="/">我的问卷</router-link>
+      <label><i class="el-icon-question"></i><strong> 问卷管理</strong></label>
+      <router-link to="/">我的问卷</router-link>
     </div>
     <router-view />
   </div>
 </template>
 
-<!--<script>
-export default {
-	data() {
-		return {}
-	},
-	computed: {
-		test() {
-			return this.$store.state.test
-		}
-	},
-	mounted() {
-		this.$store.commit('setTest', 4546)
-	}
-}
-</script>-->
+<script>
+// export default {
+//   data() {
+//     return {}
+//   },
+//   computed: {
+//     test() {
+//       return this.$store.state.test
+//     }
+//   },
+//   mounted() {
+//     this.$store.commit('setTest', 4546)
+//   }
+// }
+</script>
 
 <style>
 #app {
