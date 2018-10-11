@@ -1,24 +1,27 @@
 <template>
   <div class="home">
-    <HelloWorld />
+    <QuestionList class="questionList" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import QuestionList from '@/components/QuestionList.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    QuestionList
   }
 }
 </script>
 
-<style type="text/css">
+<style scoped>
 .home {
-  background: #efefef;
-  height: 100%;
+  padding: 20px;
+}
+.questionList {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 </style>

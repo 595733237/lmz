@@ -8,6 +8,37 @@
   </div>
 </template>
 
+<script>
+function createQuest () {
+  return {
+    title: '问卷标题',
+    questions: [{
+      id: 1,
+      // 1: 单选, 2: 多选, 3: 文本
+      type: 1,
+      title: '问题',
+      answers: [
+        {
+          id: 1,
+          value: ''
+        }
+      ],
+      result: []
+    }],
+    createDate: new Date(),
+    status: 0,
+  }
+}
+
+export default {
+  mounted () {
+    this.$store.commit('createQuest', createQuest())
+    this.$store.commit('createQuest', createQuest())
+    this.$store.commit('createQuest', createQuest())
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
